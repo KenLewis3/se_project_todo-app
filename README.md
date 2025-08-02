@@ -14,4 +14,4 @@ HTML, CSS, JavaScript are the languages used to build this application. Javascri
 
 This project is deployed on GitHub Pages:
 
-- ADD LINK HERE
+https://kenlewis3.github.io/se_project_todo-app/
