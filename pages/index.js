@@ -10,12 +10,28 @@ const addTodoForm = addTodoPopup.querySelector(".popup__form");
 const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
 const todosList = document.querySelector(".todos__list");
 
+const escKeyClose = (evt) => {
+  if (evt.key === "Escape") {
+    const visibleModal = document.querySelector(".popup_visible");
+    if (visibleModal) {
+      closeModal(visibleModal);
+    }
+  }
+};
+
 const openModal = (modal) => {
   modal.classList.add("popup_visible");
+  document.addEventListener("keydown", escKeyClose);
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
+  document.removeEventListener("keydown", escKeyClose);
+};
+
+const renderTodo = (item) => {
+  const todo = generateTodo(item);
+  todosList.append(todo);
 };
 
 const generateTodo = (data) => {
@@ -38,14 +54,15 @@ addTodoForm.addEventListener("submit", (evt) => {
   const name = evt.target.name.value;
   const dateInput = evt.target.date.value;
 
-  // Create a date object and adjust for timezone
-  const date = new Date(dateInput);
-  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+  if (dateInput !== undefined) {
+    // Create a date object and adjust for timezone
+    const date = new Date(dateInput);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+  }
 
   const id = uuidv4();
   const values = { name, date, id };
-  const todo = generateTodo(values);
-  todosList.append(todo);
+  renderTodo(values);
   closeModal(addTodoPopup);
 
   addTodoForm.reset();
@@ -53,8 +70,7 @@ addTodoForm.addEventListener("submit", (evt) => {
 });
 
 initialTodos.forEach((item) => {
-  const todo = generateTodo(item);
-  todosList.append(todo);
+  renderTodo(item);
 });
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);

@@ -4,7 +4,7 @@ class Todo {
     this._templateElement = document.querySelector(selector);
   }
 
-  _setEventListener() {
+  _setEventListeners() {
     this._todoCheckboxEl.addEventListener("change", () => {
       this._data.completed = !this._data.completed;
     });
@@ -41,7 +41,7 @@ class Todo {
     }
 
     this._generateCheckboxEl();
-    this._setEventListener();
+    this._setEventListeners();
 
     return this._todoElement;
   }
