@@ -54,10 +54,13 @@ addTodoForm.addEventListener("submit", (evt) => {
   const name = evt.target.name.value;
   const dateInput = evt.target.date.value;
 
-  if (dateInput !== undefined) {
+  let date = dateInput;
+
+  if (dateInput !== undefined && dateInput !== "") {
     // Create a date object and adjust for timezone
-    const date = new Date(dateInput);
-    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    const dateObj = new Date(dateInput);
+    dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset());
+    date = dateObj;
   }
 
   const id = uuidv4();
