@@ -11,7 +11,6 @@ class TodoCounter {
       this._completed += 1;
     } else {
       this._completed -= 1;
-      // write above code on 1 line with this._completed += increment ? 1 : -1;
     }
     this._updateText();
   };
